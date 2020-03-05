@@ -12,7 +12,7 @@ let {
 
 let { isIncognito, getBrowserContexts } = require('../../lib/browserContext');
 
-let { createHtml, removeFile } = require('./test-util');
+let { createHtml, removeFile, openBrowserArgs } = require('./test-util');
 
 describe('open browser and create browser context', () => {
   let url1;
@@ -46,7 +46,7 @@ describe('open browser and create browser context', () => {
 </section>
 `;
     url1 = createHtml(innerHtml, 'Incognito');
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     setConfig({
       waitForNavigation: true,
       retryTimeout: 100,
@@ -101,7 +101,7 @@ describe('Open window in Incognito Mode', () => {
     </section>
     `;
     url = createHtml(innerHtml, 'Incognito');
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     setConfig({
       waitForNavigation: true,
       retryTimeout: 100,
@@ -135,7 +135,7 @@ describe('Open window with same window name', () => {
     </section>
     `;
     url = createHtml(innerHtml, 'Incognito');
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     setConfig({
       waitForNavigation: true,
       retryTimeout: 100,
@@ -170,7 +170,7 @@ describe('Open window in Normal Mode', () => {
     </section>
     `;
     url = createHtml(innerHtml, 'Incognito');
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     setConfig({
       waitForNavigation: true,
       retryTimeout: 100,
@@ -219,7 +219,7 @@ describe('Isolation session storage test', () => {
 </section>
 `;
     url1 = createHtml(innerHtml, 'Incognito');
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     setConfig({
       waitForNavigation: true,
       retryTimeout: 100,
@@ -263,7 +263,7 @@ describe('Isolation session storage test', () => {
 
 describe('open window throws an error', () => {
   it('openWindow should throw an error when url parameter is missing', async () => {
-    await openBrowser();
+    await openBrowser(openBrowserArgs);
     await openWindow({ name: 'window' }).catch(error =>
       expect(error).to.be.an.instanceOf(TypeError),
     );
